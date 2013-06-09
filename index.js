@@ -1,4 +1,5 @@
 var request = require('request')
+var paramify = require('paramify')
 
 var Canvas = require('canvas')
 var canvas = new Canvas(47, 267)
@@ -55,7 +56,8 @@ function percentage(address, limit, cb) {
   // TODO stream result from request and use json parse stream instead
   request(url, function (err, response, body) {
     if (err) return cb(err)
-    if (response.statusCode != 200) return cb(new Error('Invalid response'))
+    if (response.statusCode != 200)
+      return cb(new Error('Invalid response ' + response.statusCode))
     try {
       var obj = JSON.parse(body)
       if (obj.final_balance) {
@@ -71,13 +73,17 @@ function percentage(address, limit, cb) {
 
 if (!module.parent && !process.browser) {
   require('http').createServer(function (req, res) {
-    // using this as a test case
-    // https://blockchain.info/address/1EFMGCH6ngtZcXpY75vz8Sq8Q7TZUrp7jR
-    var address = '1EFMGCH6ngtZcXpY75vz8Sq8Q7TZUrp7jR'
-    var limit = 15
-    percentage(address, limit, function (err, result) {
-      // print result with one decimal accuracy
-      if (err) return
+    var match = paramify(req.url).match
+    if (!match(':address/:limit')) {
+      // TODO return root index.html
+      res.writeHead(400, { 'Content-Type': 'text/html' })
+      return res.end('Invalid request')
+    }
+    percentage(match.params.address, match.params.limit, function (err, result) {
+      if (err) {
+        res.writeHead(400, { 'Content-Type': 'text/html' })
+        return res.end('blockchain.info ' + err)
+      }
       var percent = Math.floor(10 * result)/10
       draw(percent, ctx, function (err) {
         if (err) return console.log(err)
@@ -88,4 +94,5 @@ if (!module.parent && !process.browser) {
     })
   }).listen(3000)
   console.log('Server started on port 3000')
+  console.log('http://localhost:3000/1EFMGCH6ngtZcXpY75vz8Sq8Q7TZUrp7jR/25')
 }
