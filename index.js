@@ -51,7 +51,7 @@ function loadImage(src, cb) {
   img.src = src
 }
 
-function percentage(address, limit, cb) {
+function getBalance(address, cb) {
   var url = 'https://blockchain.info/address/' + address + '?format=json'
   // TODO stream result from request and use json parse stream instead
   request(url, function (err, response, body) {
@@ -61,7 +61,7 @@ function percentage(address, limit, cb) {
     try {
       var obj = JSON.parse(body)
       if (obj.final_balance) {
-        cb(null, 100 * obj.final_balance / (limit * 100000000))
+        cb(null, obj.final_balance / 100000000)
       } else {
         cb(new Error('Missing final_balance property'))
       }
@@ -74,17 +74,18 @@ function percentage(address, limit, cb) {
 if (!module.parent && !process.browser) {
   require('http').createServer(function (req, res) {
     var match = paramify(req.url).match
-    if (!match(':address/:limit')) {
+    if (!match(':address/:balance')) {
       // TODO return root index.html
       res.writeHead(400, { 'Content-Type': 'text/html' })
-      return res.end('Invalid request')
+      return res.end('Missing address and/or balance')
     }
-    percentage(match.params.address, match.params.limit, function (err, result) {
+    getBalance(match.params.address, function (err, balance) {
       if (err) {
         res.writeHead(400, { 'Content-Type': 'text/html' })
         return res.end('blockchain.info ' + err)
       }
-      var percent = Math.floor(10 * result)/10
+      var percent = 100 * balance / match.params.balance
+      percent = Math.floor(10 * percent)/10
       draw(percent, ctx, function (err) {
         if (err) return console.log(err)
         res.writeHead(200, { 'Content-Type': 'text/html' })
