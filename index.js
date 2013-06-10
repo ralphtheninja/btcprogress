@@ -1,5 +1,6 @@
 var request = require('request')
 var paramify = require('paramify')
+var path = require('path')
 
 var Canvas = require('canvas')
 var canvas = new Canvas(47, 267)
@@ -48,7 +49,7 @@ function loadImage(src, cb) {
   img.onerror = function () {
     cb(new Error('Failed to load image ' + src))
   }
-  img.src = src
+  img.src = path.join(__dirname, src)
 }
 
 function getBalance(address, cb) {
@@ -95,5 +96,4 @@ if (!module.parent && !process.browser) {
     })
   }).listen(8080)
   console.log('Server started on port 8080')
-  console.log('http://localhost:8080/1EFMGCH6ngtZcXpY75vz8Sq8Q7TZUrp7jR/25')
 }
