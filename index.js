@@ -93,7 +93,7 @@ if (!module.parent && !process.browser) {
         res.end('<br>' + percent + '%')
       })
     })
-  }).listen(3000)
-  console.log('Server started on port 3000')
-  console.log('http://localhost:3000/1EFMGCH6ngtZcXpY75vz8Sq8Q7TZUrp7jR/25')
+  }).listen(8080)
+  console.log('Server started on port 8080')
+  console.log('http://localhost:8080/1EFMGCH6ngtZcXpY75vz8Sq8Q7TZUrp7jR/25')
 }
