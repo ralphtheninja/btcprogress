@@ -39,19 +39,18 @@ wallet.on("transaction", function (trx) {
 
 Infact, that is the code used to make this site!
 
-![fund this project!](/1EU3zgQiyDphRH3d12Cbr1UzEujNtkyKeN/10)
+You can [fund this project](bitcoin:1EU3zgQiyDphRH3d12Cbr1UzEujNtkyKeN). The bitcoin address is 1EU3zgQiyDphRH3d12Cbr1UzEujNtkyKeN
 
-This website is the MVP for this project, so far 
-[https://github.com/ralphtheninja/btcprogress] we have created just enough
-to get this page up, and get your feedback.
+![progress bar here](/1EU3zgQiyDphRH3d12Cbr1UzEujNtkyKeN/10)
+
+This website is the MVP for this project, so far we have created just enough to get this page up, and get your feedback.
 
 ## project dreams - long range goals
 
-* improve bitcoinjs / remove blockchain.info dep -
-it must be possible to run everything locally 
+* improve bitcoinjs / remove blockchain.info dep - it must be possible to run everything locally
 * trigger automatic actions (including payments) when a wallet reaches a threshold
   (time, or amount)
-* trelloesque way to back specific issues, or 
+* trelloesque way to back specific issues, or
 * probably many other bitcoin specific node modules that we’ll need to build such a system!
 
 [you tell us?](https://github.com/ralphtheninja/btcprogress/issues/new)

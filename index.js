@@ -1,10 +1,8 @@
 var request = require('request')
 var paramify = require('paramify')
-var path = require('path')
 var opts = require('optimist').argv
 var stack = require('stack')
 var ecstatic = require('ecstatic')
-
 var bar = require('canvas-progress-bar')()
 
 //20 second microcache, to stay under the blockchain
@@ -14,16 +12,16 @@ var bar = require('canvas-progress-bar')()
 var cache = {}
 
 function balance(address, cb) {
-  if(cache[address])
+  if (cache[address])
     return cb(null, cache[address])
 
   var options = {
-          uri: 'https://blockchain.info/address/' + address + '?format=json',
-          json: true
+          uri: 'https://blockchain.info/address/' + address + '?format=json'
+        , json: true
       }
 
-  request.get(options, function (err, _, body) {    
-    if(err) return cb(err)
+  request.get(options, function (err, _, body) {
+    if (err) return cb(err)
     cache[address] = body.total_received
 
     setTimeout(function () {
@@ -37,16 +35,18 @@ function balance(address, cb) {
 function middleware () {
   return function (req, res, next) {
     req.resume()
-    var match = paramify(req.url).match
+
     function error(err) {
-      if(next) return next(err)
+      if (next) return next(err)
       res.writeHead(400, { 'Content-Type': 'text/html' })
       res.end(err.message || err)
     }
 
+    var match = paramify(req.url).match
+
     if (!match(':address/:balance')) {
         // TODO return root index.html
-        if(next) return next()
+        if (next) return next()
         error('Missing address and/or balance')
     }
 

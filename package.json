@@ -2,7 +2,7 @@
   "name": "btcprogress",
   "description": "Bitcoin progress meter for backing open source projects",
   "keywords": [],
-  "version": "0.0.3",
+  "version": "0.1.0",
   "author": "Lars-Magnus Skog <lars.magnus.skog@gmail.com>",
   "repository": {
     "url": "git://github.com/ralphtheninja/btcprogress.git"
@@ -21,7 +21,8 @@
     "stack": "~0.1.0"
   },
   "devDependencies": {
-    "tap": "~0.4.0"
+    "tap": "~0.4.0",
+    "himark": "~1.0.0"
   },
   "license": "MIT"
 }
