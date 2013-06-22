@@ -62,10 +62,12 @@ function middleware () {
 module.exports = middleware
 module.exports.balance = balance
 
+var port = opts.port || 8080
+
 if (!module.parent && !process.browser) {
   require('http').createServer(
     stack(middleware(),ecstatic(__dirname+'/static'))
-  ).listen(opts.port, function () {
-    console.log('Server started on port ' + opts.port)
+  ).listen(port, function () {
+    console.log('Server started on port ' + port)
   })
 }
