@@ -2,6 +2,8 @@ var request = require('request')
 var paramify = require('paramify')
 var path = require('path')
 var opts = require('optimist').argv
+var stack = require('stack')
+var ecstatic = require('ecstatic')
 
 var bar = require('canvas-progress-bar')()
 
@@ -44,6 +46,7 @@ function middleware () {
 
     if (!match(':address/:balance')) {
         // TODO return root index.html
+        if(next) return next()
         error('Missing address and/or balance')
     }
 
@@ -60,7 +63,9 @@ module.exports = middleware
 module.exports.balance = balance
 
 if (!module.parent && !process.browser) {
-  require('http').createServer(middleware()).listen(opts.port, function () {
+  require('http').createServer(
+    stack(middleware(),ecstatic(__dirname+'/static'))
+  ).listen(opts.port, function () {
     console.log('Server started on port ' + opts.port)
   })
 }
