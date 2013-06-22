@@ -1,89 +1,73 @@
 var request = require('request')
-var JSONStream = require('JSONStream')
 var paramify = require('paramify')
 var path = require('path')
+var opts = require('optimist').argv
+var stack = require('stack')
+var ecstatic = require('ecstatic')
 
-var Canvas = require('canvas')
-var canvas = new Canvas(47, 267)
-var ctx = canvas.getContext('2d')
+var bar = require('canvas-progress-bar')()
 
-function draw(percent, ctx, cb) {
-  percent = Math.min(percent, 100)
-  ctx.clearRect(0, 0, 47, 267)
-  loadImage('resources/body.png', function (err, img) {
-    if (err) return cb(err)
+//20 second microcache, to stay under the blockchain
+//api rate limit.
+// https://blockchain.info/q
 
-    // draw body
-    ctx.drawImage(img, 0, 0)
+var cache = {}
 
-    if (percent === 0) return cb(null)
+function balance(address, cb) {
+  if(cache[address])
+    return cb(null, cache[address])
 
-    loadImage('resources/scale.png', function (err, img) {
-      if (err) return cb(err)
-
-      // draw up to 10%
-      var maxOffset = Math.min(percent, 10) * 1.3
-      for (var i = 1; i < maxOffset; ++i) {
-        ctx.drawImage(img, 9, 253 - i)
+  var options = {
+          uri: 'https://blockchain.info/address/' + address + '?format=json',
+          json: true
       }
 
-      // draw above 10%
-      if (percent > 10) {
-        percent -= 10
-        maxOffset = percent * 2.6
-        for (i = 1; i < maxOffset; ++i) {
-          ctx.drawImage(img, 9, 241 - i)
-        }
-      }
+  request.get(options, function (err, _, body) {    
+    if(err) return cb(err)
+    cache[address] = body.total_received
 
-      cb(null)
-    })
+    setTimeout(function () {
+      delete cache[address]
+    }, 10)
 
+    cb(err, cache[address])
   })
 }
 
-function loadImage(src, cb) {
-  var img = new Canvas.Image()
-  img.onload = function () {
-    cb(null, img)
-  }
-  img.onerror = function () {
-    cb(new Error('Failed to load image ' + src))
-  }
-  img.src = path.join(__dirname, src)
-}
-
-function balanceStream(address) {
-  var options = {
-          uri: 'https://blockchain.info/address/' + address + '?format=json'
-      }
-  var parser = JSONStream.parse(['total_received'])
-  request.get(options).pipe(parser)
-  return parser
-}
-
-if (!module.parent && !process.browser) {
-  require('http').createServer(function (req, res) {
+function middleware () {
+  return function (req, res, next) {
+    req.resume()
     var match = paramify(req.url).match
-    if (!match(':address/:balance')) {
-      // TODO return root index.html
+    function error(err) {
+      if(next) return next(err)
       res.writeHead(400, { 'Content-Type': 'text/html' })
-      return res.end('Missing address and/or balance')
+      res.end(err.message || err)
     }
 
-    var stream = balanceStream(match.params.address)
-    stream.on('data', function (data) {
-      stream.end()
-      var percent = data / 1000000 / match.params.balance
-      percent = Math.floor(10 * percent)/10
-      draw(percent, ctx, function (err) {
-        if (err) return console.log(err)
-        res.writeHead(200, { 'Content-Type': 'text/html' })
-        res.write('<img src="' + canvas.toDataURL() + '" />')
-        res.end('<br>' + percent + '%')
-      })
-    })
+    if (!match(':address/:balance')) {
+        // TODO return root index.html
+        if(next) return next()
+        error('Missing address and/or balance')
+    }
 
-  }).listen(8080)
-  console.log('Server started on port 8080')
+    balance(match.params.address, function (err, data) {
+      var percent = data / 100000000 / (match.params.balance || 1)
+      bar.progress(percent)
+      bar.pngStream().pipe(res)
+      res.writeHead(200, { 'Content-Type': 'image/png' })
+    })
+  }
+}
+
+module.exports = middleware
+module.exports.balance = balance
+
+var port = opts.port || 8080
+
+if (!module.parent && !process.browser) {
+  require('http').createServer(
+    stack(middleware(),ecstatic(__dirname+'/static'))
+  ).listen(port, function () {
+    console.log('Server started on port ' + port)
+  })
 }

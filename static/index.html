@@ -1,0 +1,340 @@
+<!doctype html>
+  <html>
+  <head>
+  <style>
+pre {
+  background-color: rgb(248, 248, 248);
+  border: 1px solid rgb(221, 221, 221);
+  padding:  6px 10px 6px 10px;
+}
+
+.highlight {
+//  background: #ffffff;
+}
+
+.highlight .c {
+  color: #999988;
+  font-style: italic;
+}
+
+.highlight .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+
+.highlight .k {
+  font-weight: bold;
+}
+
+.highlight .o {
+  font-weight: bold;
+}
+
+.highlight .cm {
+  color: #999988;
+  font-style: italic;
+}
+
+.highlight .cp {
+  color: #999999;
+  font-weight: bold;
+}
+
+.highlight .c1 {
+  color: #999988;
+  font-style: italic;
+}
+
+.highlight .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.highlight .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+
+.highlight .gd .x {
+  color: #000000;
+  background-color: #ffaaaa;
+}
+
+.highlight .ge {
+  font-style: italic;
+}
+
+.highlight .gr {
+  color: #aa0000;
+}
+
+.highlight .gh {
+  color: #999999;
+}
+
+.highlight .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+
+.highlight .gi .x {
+  color: #000000;
+  background-color: #aaffaa;
+}
+
+.highlight .go {
+  color: #888888;
+}
+
+.highlight .gp {
+  color: #555555;
+}
+
+.highlight .gs {
+  font-weight: bold;
+}
+
+.highlight .gu {
+  color: #800080;
+  font-weight: bold;
+}
+
+.highlight .gt {
+  color: #aa0000;
+}
+
+.highlight .kc {
+  font-weight: bold;
+}
+
+.highlight .kd {
+  font-weight: bold;
+}
+
+.highlight .kn {
+  font-weight: bold;
+}
+
+.highlight .kp {
+  font-weight: bold;
+}
+
+.highlight .kr {
+  font-weight: bold;
+}
+
+.highlight .kt {
+  color: #445588;
+  font-weight: bold;
+}
+
+.highlight .m {
+  color: #009999;
+}
+
+.highlight .s {
+  color: #d14;
+}
+
+.highlight .n {
+  color: #333333;
+}
+
+.highlight .na {
+  color: #008080;
+}
+
+.highlight .nb {
+  color: #0086B3;
+}
+
+.highlight .nc {
+  color: #445588;
+  font-weight: bold;
+}
+
+.highlight .no {
+  color: #008080;
+}
+
+.highlight .ni {
+  color: #800080;
+}
+
+.highlight .ne {
+  color: #990000;
+  font-weight: bold;
+}
+
+.highlight .nf {
+  color: #990000;
+  font-weight: bold;
+}
+
+.highlight .nn {
+  color: #555555;
+}
+
+.highlight .nt {
+  color: #000080;
+}
+
+.highlight .nv {
+  color: #008080;
+}
+
+.highlight .ow {
+  font-weight: bold;
+}
+
+.highlight .w {
+  color: #bbbbbb;
+}
+
+.highlight .mf {
+  color: #009999;
+}
+
+.highlight .mh {
+  color: #009999;
+}
+
+.highlight .mi {
+  color: #009999;
+}
+
+.highlight .mo {
+  color: #009999;
+}
+
+.highlight .sb {
+  color: #d14;
+}
+
+.highlight .sc {
+  color: #d14;
+}
+
+.highlight .sd {
+  color: #d14;
+}
+
+.highlight .s2 {
+  color: #d14;
+}
+
+.highlight .se {
+  color: #d14;
+}
+
+.highlight .sh {
+  color: #d14;
+}
+
+.highlight .si {
+  color: #d14;
+}
+
+.highlight .sx {
+  color: #d14;
+}
+
+.highlight .sr {
+  color: #009926;
+}
+
+.highlight .s1 {
+  color: #d14;
+}
+
+.highlight .ss {
+  color: #990073;
+}
+
+.highlight .bp {
+  color: #999999;
+}
+
+.highlight .vc {
+  color: #008080;
+}
+
+.highlight .vg {
+  color: #008080;
+}
+
+.highlight .vi {
+  color: #008080;
+}
+
+.highlight .il {
+  color: #009999;
+}
+
+
+  </style>
+  </head>
+  <body>
+<h1>BitCoin Backer</h1>
+<p>Iteratively Back Open Source Projects with BitCoin.</p>
+<p>Bitcoin has a lot of potential, but currently,
+it’s way too hard to build things with it.</p>
+<p>Also, the world needs more open source,
+and people who use open source need better ways to encourage it, (i.e. to fund it)</p>
+<p>We already have kickstarter, and gittip.
+These are good things, but we need more good things.
+GitTip is like busking but software is not like playing music on the sidewalk.
+Kickstarter essentially forces you to use the
+<a href="https://en.wikipedia.org/wiki/Waterfall_model">waterfall model</a>,
+which has long been known as a recipe for disaster!</p>
+<p>Since BitCoin is Open Source Money, lets hit both nails with one hammer!</p>
+<p>I should be easy to fund a project <em>iteratively</em>,
+and funding a project should be an important way of providing feedback.
+You can’t produce good software without feedback.</p>
+<p>And also, since this is open source,
+it should be possible to host your own fundable project on your own server,
+like you can host your own blog. It must be that simple.</p>
+<p>It must be this simple:</p>
+<pre><code class="lang-js"><span class=highlight><span class=kd>var</span><span class=w> </span><span class=nx>Wallet</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>require</span><span class=p>(</span><span class=s1>"bitcoin-wallet"</span><span class=p>)</span><span class=w>
+</span><span class=kd>var</span><span class=w> </span><span class=nx>wallet</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kd>new</span><span class=w> </span><span class=nx>Wallet</span><span class=p>(</span><span class=p>{</span><span class=nx>watch</span><span class=p>:</span><span class=w> </span><span class=nx>ADDRESS</span><span class=p>,</span><span class=w> </span><span class=nx>minConfimations</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>}</span><span class=p>)</span><span class=w>
+</span><span class=nx>wallet</span><span class=p>.</span><span class=nx>on</span><span class=p>(</span><span class=s1>"transaction"</span><span class=p>,</span><span class=w> </span><span class=kd>function</span><span class=w> </span><span class=p>(</span><span class=nx>trx</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+  </span><span class=c>//you just received a transaction,
+</span><span class=w>  </span><span class=c>//do something with it!
+</span><span class=w>  </span><span class=nx>this</span><span class=p>.</span><span class=nx>balance</span><span class=p>(</span><span class=p>)</span><span class=w>
+</span><span class=p>}</span><span class=p>)</span></span></code></pre>
+<p>Infact, that is the code used to make this site!</p>
+<p><img src="/1EU3zgQiyDphRH3d12Cbr1UzEujNtkyKeN/10" alt="fund this project!"></p>
+<p>This website is the MVP for this project, so far 
+[<a href="https://github.com/ralphtheninja/btcprogress">https://github.com/ralphtheninja/btcprogress</a>] we have created just enough
+to get this page up, and get your feedback.</p>
+<h2>project dreams - long range goals</h2>
+<ul>
+<li>improve bitcoinjs / remove blockchain.info dep -
+it must be possible to run everything locally </li>
+<li>trigger automatic actions (including payments) when a wallet reaches a threshold
+(time, or amount)</li>
+<li>trelloesque way to back specific issues, or </li>
+<li>probably many other bitcoin specific node modules that we’ll need to build such a system!</li>
+</ul>
+<p><a href="https://github.com/ralphtheninja/btcprogress/issues/new">you tell us?</a></p>
+<h1>immediate goals</h1>
+<ul>
+<li>create simple progress bar png that can be included directly into a README/issue/blog <em>DONE</em></li>
+<li>able to trigger payments from events</li>
+<li>make your own funding app/page in a page of code.</li>
+<li>define tasks and funding limits</li>
+</ul>
+<p>The first step is just to discover if people are into this idea,
+so we have set our initial round for the second iteration at just 10 bitcoins,
+please help, fork, or post an issue on 
+<a href="https://github.com/ralphtheninja/btcprogress/issues/new">project-repo</a>
+about the features you are looking for.</p>
+<p><a href="https://github.com/ralphtheninja/btcprogress">
+<img style="position: absolute; top: 0; right: 0; border: 0;"
+  src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"
+  alt="Fork me on GitHub">
+</a></p>
+
+</body>
+</html>

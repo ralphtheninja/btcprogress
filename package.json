@@ -9,13 +9,16 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "tap --stderr ./test/*.js"
+    "test": "tap --stderr ./test/*.js",
+    "build": "himark static/page.md --css --html > static/index.html"
   },
   "dependencies": {
-    "canvas": "1.0.2",
     "request": "2.21.0",
     "paramify": "0.0.1",
-    "JSONStream": "0.6.4"
+    "canvas-progress-bar": "~1.0.2",
+    "optimist": "~0.5.2",
+    "ecstatic": "~0.4.5",
+    "stack": "~0.1.0"
   },
   "devDependencies": {
     "tap": "~0.4.0"
