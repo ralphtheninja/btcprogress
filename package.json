@@ -12,10 +12,10 @@
     "test": "tap --stderr ./test/*.js"
   },
   "dependencies": {
-    "canvas": "1.0.2",
     "request": "2.21.0",
     "paramify": "0.0.1",
-    "JSONStream": "0.6.4"
+    "canvas-progress-bar": "~1.0.2",
+    "optimist": "~0.5.2"
   },
   "devDependencies": {
     "tap": "~0.4.0"
