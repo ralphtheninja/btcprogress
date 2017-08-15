@@ -1,5 +1,7 @@
 #btcprogress
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ralphtheninja/btcprogress.svg)](https://greenkeeper.io/)
+
 Uses data from blockchain.info and returns a png progressbar for the current funding of the provided address. I had to shut down the online service
 for financial reasons but you can host it yourself very easily.
 
