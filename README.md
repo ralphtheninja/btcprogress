@@ -1,9 +1,11 @@
-#btcprogress
+# btcprogress
 
 Uses data from blockchain.info and returns a png progressbar for the current funding of the provided address. I had to shut down the online service
 for financial reasons but you can host it yourself very easily.
 
-[![Dependency Status](https://david-dm.org/ralphtheninja/btcprogress.png)](https://david-dm.org/ralphtheninja/btcprogress)
+[![Build Status](https://travis-ci.org/ralphtheninja/btcprogress.svg?branch=master)](https://travis-ci.org/ralphtheninja/btcprogress)
+
+## Usage
 
 Include a bar showing progress towards a funding target like this:
 
@@ -18,3 +20,6 @@ Currently, this project just exports a express style middleware, that you can in
 require('http').createServer(require('btcprogress')).listen(8000)
 ```
 
+## License
+
+MIT
