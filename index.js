@@ -1,20 +1,20 @@
-var path = require('path')
-var request = require('request')
-var paramify = require('paramify')
-var opts = require('optimist').argv
-var stack = require('stack')
-var ecstatic = require('ecstatic')
-var bar = require('canvas-progress-bar')()
+const path = require('path')
+const request = require('request')
+const paramify = require('paramify')
+const opts = require('optimist').argv
+const stack = require('stack')
+const ecstatic = require('ecstatic')
+const bar = require('canvas-progress-bar')()
 
 // 20 second microcache, to stay under the blockchain api rate limit.
 // https://blockchain.info/q
 
-var cache = {}
+const cache = {}
 
 function balance (address, cb) {
   if (cache[address]) { return cb(null, cache[address]) }
 
-  var options = {
+  const options = {
     uri: 'https://blockchain.info/address/' + address + '?format=json',
     json: true
   }
@@ -41,7 +41,7 @@ function middleware () {
       res.end(err.message || err)
     }
 
-    var match = paramify(req.url).match
+    const match = paramify(req.url).match
 
     if (!match(':address/:balance')) {
         // TODO return root index.html
@@ -51,7 +51,7 @@ function middleware () {
 
     balance(match.params.address, function (err, data) {
       if (err) return error(err)
-      var percent = data / 100000000 / (match.params.balance || 1)
+      const percent = data / 100000000 / (match.params.balance || 1)
       bar.progress(percent)
       bar.pngStream().pipe(res)
       res.writeHead(200, { 'Content-Type': 'image/png' })
@@ -62,7 +62,7 @@ function middleware () {
 module.exports = middleware
 module.exports.balance = balance
 
-var port = opts.port || 8080
+const port = opts.port || 8080
 
 if (!module.parent && !process.browser) {
   require('http').createServer(
