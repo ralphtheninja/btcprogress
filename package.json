@@ -9,7 +9,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "tap --stderr ./test/*.js",
+    "test": "standard",
     "build": "himark static/page.md --css --html > static/index.html"
   },
   "dependencies": {
@@ -21,8 +21,8 @@
     "stack": "~0.1.0"
   },
   "devDependencies": {
-    "tap": "~0.4.0",
-    "himark": "~1.0.0"
+    "himark": "~1.0.0",
+    "standard": "^10.0.3"
   },
   "license": "MIT"
 }
